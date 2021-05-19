@@ -1,30 +1,15 @@
-pipeline{
-
-  agent any
-    environment { 
-        registry = "coreofatom/spring-boot-docker" 
-        registryCredential = 'coreofatom' 
-        dockerImage = '' 
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.8.1-adoptopenjdk-11' 
+            args '-v /root/.m2:/root/.m2' 
+        }
     }
     stages {
-          
-        stage ('Testing ') {
+        stage('Build') { 
             steps {
-                script{
-                  if (isUnix()){
-                    sh 'mvnw test'
-                               }
-                  else{
-                        bat '.\\mvnw test'
-                      }
-                      }
-                  }
-                            }
-            post {
-                    always {
-                        junit '**/target/surefire-reports/TEST-*.xml'
-                            }
-                  }
+                sh 'mvn -B -DskipTests clean package' 
+            }
+        }
     }
-    
-        
+}
