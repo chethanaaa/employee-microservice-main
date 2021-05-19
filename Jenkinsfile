@@ -13,16 +13,18 @@ pipeline{
                 script{
                   if (isUnix()){
                     sh 'mvnw test'
-                   }
+                               }
                   else{
                         bat '.\\mvnw test'
-                    }
-            }
-         }
+                      }
+                      }
+                  }
+                            }
             post {
                     always {
                         junit '**/target/surefire-reports/TEST-*.xml'
-                }
-            }
+                            }
+                  }
+    }
     
-        }
+        
