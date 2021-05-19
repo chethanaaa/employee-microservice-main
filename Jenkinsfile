@@ -11,9 +11,13 @@ pipeline {
             steps {
                 script{
                   if (isUnix()){
+                sh "mvn clean install"
+                      
                     sh 'mvnw test'
                    }
                   else{
+                bat "mvn clean install"
+                      
                         bat '.\\mvnw test'
                     }
                 }
